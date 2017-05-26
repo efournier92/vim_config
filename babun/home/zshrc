@@ -63,6 +63,10 @@ source $ZSH/oh-my-zsh.sh
 source ~/.oh-my-zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10'
 
+if [ -z "$TMUX" ]
+  then tmux
+fi
+
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
