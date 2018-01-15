@@ -1,8 +1,8 @@
-#`.vimrc` Backup
+# `.vimrc` Backup
 
 This repo contains a historical backlog of my `.vimrc` configuration.
 
-##Required Plugins
+## Required Plugins
 * ctrlp
 * nerdtree
 * vimux
