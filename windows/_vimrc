@@ -3,21 +3,18 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible " not compatible with vi
 filetype off
-set rtp+=~/vimfiles/bundle/Vundle.vim " runtime includes Vundle
+set rtp+=~/.vim/bundle/vundle "runtime includes Vundle
 call vundle#begin()
-  Plugin 'gmarik/vundle'
   Plugin 'kien/ctrlp.vim'
   Plugin 'scrooloose/nerdtree'
-  Plugin 'benmills/vimux'
-  Plugin 'tpope/vim-fugitive'
-  Plugin 'tpope/vim-commentary'
-  Plugin 'kchmck/vim-coffee-script'
-  Plugin 'mattn/emmet-vim'
   Plugin 'jeetsukumaran/vim-buffergator'
-  Plugin 'pangloss/vim-javascript'
-  Plugin 'jelera/vim-javascript-syntax'
-  Plugin 'digitaltoad/vim-pug'
+  Plugin 'xuyuanp/nerdtree-git-plugin'
+  Plugin 'ervandew/supertab'
+  Plugin 'mattn/emmet-vim'
   Plugin 'valloric/MatchTagAlways'
+  Plugin 'tpope/vim-commentary'
+  Plugin 'groenewege/vim-less'
+  Plugin 'jelera/vim-javascript-syntax'
 call vundle#end()
 filetype plugin indent on
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -30,12 +27,8 @@ set gcr=n:blinkon0 " no blinking cursor
 set autoread " detect when a file is changed
 set backspace=indent,eol,start " fix backspace
 set ttyfast " faster redrawing
+set cm=blowfish2 " encryption method
 let mapleader = '\'
-
-"Windows
-set guioptions -=T
-set guioptions -=m
-source $VIMRUNTIME/mswin.vim
 
 " Color
 syntax on
@@ -47,7 +40,6 @@ colorscheme solarized
 
 " Formatting 
 filetype plugin indent on
-set guifont=Menlo:h14
 set linespace=3
 set encoding=utf8
 set number
@@ -98,6 +90,42 @@ set foldnestmax=10 " deepest fold is 10 levels
 set nofoldenable " don't fold by default
 set foldlevel=1
 
+" Quickfix Menu	
+map <leader>p :copen<CR>
+map <leader>P :cclose<CR>
+
+" Clipboard
+set clipboard=unnamed
+
+" Font
+if has('unix')
+  if has('mac')
+    set guifont=Menlo:h14 " OSX
+  else
+    set guifont=Menlo:h14 " LINUX
+  endif
+elseif has('win32') || has('win64')
+  set guifont=Consolas:h13 " WINDOWS
+endif
+
+" Cursor Shape
+if exists('$TMUX')
+    let &t_SI = "\<Esc>Ptmux;\<Esc>\e[5 q\<Esc>\\"
+    let &t_EI = "\<Esc>Ptmux;\<Esc>\e[2 q\<Esc>\\"
+else
+    let &t_SI = "\e[5 q"
+    let &t_EI = "\e[2 q"
+endif
+
+" Windows GUI
+if has('win32') || has('win64')
+  source $VIMRUNTIME/mswin.vim
+  set guioptions -=T
+  set guioptions -=m
+  autocmd GUIEnter * set vb t_vb=
+endif
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGINS 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -124,24 +152,14 @@ let g:ctrlp_custom_ignore = {
         \ 'dir': '\.git$\|node_modules$\|\.hg$\|\.svn$',
         \ 'file': '\.exe$\|\.so$'
         \ }
-map <leader>r :CtrlPBuffer<CR>
+map <leader>\ :CtrlPBuffer<CR>
 
 " Buffergator
 let g:buffergator_viewport_split_policy = 'L' 
 nmap <leader>j  :BuffergatorMruCyclePrev<cr>
 nmap <leader>k  :BuffergatorMruCycleNext<cr>
-nmap <C-b>      :BuffergatorToggle<cr>
 nmap <leader>bq :bp <BAR> bd #<cr>
 
 " Emmet HTML Helper
 let g:user_emmet_leader_key='<C-Z>'
 
-" Silver Searcher
-let g:ackprg = 'ag --nogroup --nocolor --column'
-if executable('ag')
-  set grepprg=ag\ --nogroup\ --nocolor
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-  let g:ctrlp_use_caching = 0
-endif
-nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
-command -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
