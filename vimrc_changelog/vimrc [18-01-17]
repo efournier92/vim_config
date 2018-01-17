@@ -6,15 +6,15 @@ filetype off
 set rtp+=~/.vim/bundle/vundle "runtime includes Vundle
 call vundle#begin()
   Plugin 'kien/ctrlp.vim'
-  Plugin 'scrooloose/nerdtree'
-  Plugin 'jeetsukumaran/vim-buffergator'
-  Plugin 'xuyuanp/nerdtree-git-plugin'
-  Plugin 'ervandew/supertab'
   Plugin 'mattn/emmet-vim'
   Plugin 'valloric/MatchTagAlways'
+  Plugin 'scrooloose/nerdtree'
+  Plugin 'xuyuanp/nerdtree-git-plugin'
+  Plugin 'ervandew/supertab'
+  Plugin 'jeetsukumaran/vim-buffergator'
   Plugin 'tpope/vim-commentary'
-  Plugin 'groenewege/vim-less'
   Plugin 'jelera/vim-javascript-syntax'
+  Plugin 'groenewege/vim-less'
 call vundle#end()
 filetype plugin indent on
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
