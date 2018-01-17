@@ -1,6 +1,10 @@
 # `.vimrc` Backup
 
-This repo contains a historical backlog of my `.vimrc` configuration.
+This repo contains my configuration files for:
+* vim
+* tmux
+* babun
+
 
 ## Required Plugins
 * ctrlp
