@@ -1,4 +1,4 @@
-# `.vimrc` Backup
+# Config Backup
 
 This repo contains my configuration files for:
 * vim
@@ -15,3 +15,4 @@ This repo contains my configuration files for:
 * vim-coffee-script
 * emmet-vim
 * vim-buffergator
+
