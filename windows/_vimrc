@@ -47,7 +47,7 @@ set autoindent " automatically set indent of new line
 set smartindent
 set laststatus=2 " show the satus line all the time
 set visualbell 
-set t_vb= " disable bell/flash alert
+autocmd GUIEnter * set vb t_vb=
 set colorcolumn=80 " indicate 80th column 
 
 " Spelling
@@ -122,7 +122,6 @@ if has('win32') || has('win64')
   source $VIMRUNTIME/mswin.vim
   set guioptions -=T
   set guioptions -=m
-  autocmd GUIEnter * set vb t_vb=
 endif
 
 
