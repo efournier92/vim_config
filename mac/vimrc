@@ -40,7 +40,6 @@ colorscheme solarized
 
 " Formatting 
 filetype plugin indent on
-set guifont=Menlo:h14
 set linespace=3
 set encoding=utf8
 set number
@@ -48,17 +47,8 @@ set autoindent " automatically set indent of new line
 set smartindent
 set laststatus=2 " show the satus line all the time
 set visualbell 
-set t_vb= " disable bell/flash alert
+autocmd GUIEnter * set vb t_vb=
 set colorcolumn=80 " indicate 80th column 
-
-" Cursor Shape
-if exists('$TMUX')
-    let &t_SI = "\<Esc>Ptmux;\<Esc>\e[5 q\<Esc>\\"
-    let &t_EI = "\<Esc>Ptmux;\<Esc>\e[2 q\<Esc>\\"
-else
-    let &t_SI = "\e[5 q"
-    let &t_EI = "\e[2 q"
-endif
 
 " Spelling
 hi! SpellBad cterm=underline ctermbg=none ctermfg=none
@@ -100,12 +90,40 @@ set foldnestmax=10 " deepest fold is 10 levels
 set nofoldenable " don't fold by default
 set foldlevel=1
 
-" Clipboard
-set clipboard=unnamed
-
 " Quickfix Menu	
 map <leader>p :copen<CR>
 map <leader>P :cclose<CR>
+
+" Clipboard
+set clipboard=unnamed
+
+" Font
+if has('unix')
+  if has('mac')
+    set guifont=Menlo:h14 " OSX
+  else
+    set guifont=Consola:h13 " LINUX
+  endif
+elseif has('win32') || has('win64')
+  set guifont=Consolas:h13 " WINDOWS
+endif
+
+" Cursor Shape
+if exists('$TMUX')
+    let &t_SI = "\<Esc>Ptmux;\<Esc>\e[5 q\<Esc>\\"
+    let &t_EI = "\<Esc>Ptmux;\<Esc>\e[2 q\<Esc>\\"
+else
+    let &t_SI = "\e[5 q"
+    let &t_EI = "\e[2 q"
+endif
+
+" Windows GUI
+if has('win32') || has('win64')
+  source $VIMRUNTIME/mswin.vim
+  set guioptions -=T
+  set guioptions -=m
+endif
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGINS 
