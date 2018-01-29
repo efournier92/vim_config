@@ -6,15 +6,15 @@ filetype off
 set rtp+=~/.vim/bundle/vundle "runtime includes Vundle
 call vundle#begin()
   Plugin 'kien/ctrlp.vim'
-  Plugin 'mattn/emmet-vim'
-  Plugin 'valloric/MatchTagAlways'
   Plugin 'scrooloose/nerdtree'
+  Plugin 'jeetsukumaran/vim-buffergator'
   Plugin 'xuyuanp/nerdtree-git-plugin'
   Plugin 'ervandew/supertab'
-  Plugin 'jeetsukumaran/vim-buffergator'
+  Plugin 'mattn/emmet-vim'
+  Plugin 'valloric/MatchTagAlways'
   Plugin 'tpope/vim-commentary'
-  Plugin 'jelera/vim-javascript-syntax'
   Plugin 'groenewege/vim-less'
+  Plugin 'jelera/vim-javascript-syntax'
 call vundle#end()
 filetype plugin indent on
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -94,8 +94,10 @@ set foldlevel=1
 map <leader>p :copen<CR>
 map <leader>P :cclose<CR>
 
-" Clipboard
-set clipboard=unnamed
+" Mac Clipboard
+if has('mac')
+  set clipboard=unnamed
+endif
 
 " Font
 if has('unix')
