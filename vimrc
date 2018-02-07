@@ -20,26 +20,50 @@ filetype plugin indent on
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " SYSTEM 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set directory^=$HOME/.vim/tmp/ "swap files
+" OS Dependent
+if has('unix')
+  if has('mac')
+    " Mac
+    set directory^=$HOME/.vim/tmp/ " swap files
+    set undodir^=$HOME/.vim/tmp/ " swap files
+    set guifont=Menlo:h14 " font
+  else
+    " Linux
+    set undodir^=$HOME/.vim/undo/ " undo files
+    set directory^=$HOME/.vim/swp/ " swap files
+    set guifont=Consola:h13 " font
+  endif
+elseif has('win32') || has('win64')
+  " Windows
+  set directory^=$HOME/vimfiles/swp/ " swap files
+  set undodir^=$HOME/vimfiles/undo/ " undo files
+  set guifont=Consolas:h13 " font
+  set guioptions -=T
+  set guioptions -=m
+  source $VIMRUNTIME/mswin.vim
+endif
+
+" Core
+let mapleader = '\'
+set cm=blowfish2 " encryption method
 set shortmess+=I " disable welcome
 set shortmess+=A " disable swp warnings
 set gcr=n:blinkon0 " no blinking cursor
 set autoread " detect when a file is changed
 set backspace=indent,eol,start " fix backspace
 set ttyfast " faster redrawing
-set cm=blowfish2 " encryption method
-let mapleader = '\'
 
 " Color
-syntax on
-filetype on
-set t_Co=256 " Support 256 colors
-let base16colorspace=256  " Access 256 colorspace
-set background=dark
 colorscheme solarized
+filetype on
+syntax on
+let base16colorspace=256  " Access 256 colorspace
+set t_Co=256 " Support 256 colors
+set background=dark
 
 " Formatting 
 filetype plugin indent on
+autocmd GUIEnter * set vb t_vb=
 set linespace=3
 set encoding=utf8
 set number
@@ -47,7 +71,6 @@ set autoindent " automatically set indent of new line
 set smartindent
 set laststatus=2 " show the satus line all the time
 set visualbell 
-autocmd GUIEnter * set vb t_vb=
 set colorcolumn=80 " indicate 80th column 
 
 " Spelling
@@ -63,12 +86,6 @@ set softtabstop=2 " edit as if the tabs are this width
 set shiftwidth=2 " indent spaces 
 set shiftround " round indent to a multiple of 'shiftwidth'
 
-" Persistent Undo
-set undofile
-set undodir=~/.vim/undo/
-set undolevels=10000
-set undoreload=100000
-
 " Search
 set ignorecase " case insensitive searching
 set smartcase " case-sensitive if expresson contains a capital letter
@@ -78,6 +95,11 @@ set nolazyredraw " don't redraw while executing macros
 set magic " Set magic on, for regex
 set showmatch " show matching braces
 set mat=2 " how many tenths of a second to blink
+
+" Persistent Undo
+set undofile
+set undolevels=10000
+set undoreload=100000
 
 " Ruler
 set showcmd
@@ -94,22 +116,6 @@ set foldlevel=1
 map <leader>p :copen<CR>
 map <leader>P :cclose<CR>
 
-" Mac Clipboard
-if has('mac')
-  set clipboard=unnamed
-endif
-
-" Font
-if has('unix')
-  if has('mac')
-    set guifont=Menlo:h14 " OSX
-  else
-    set guifont=Consola:h13 " LINUX
-  endif
-elseif has('win32') || has('win64')
-  set guifont=Consolas:h13 " WINDOWS
-endif
-
 " Cursor Shape
 if exists('$TMUX')
     let &t_SI = "\<Esc>Ptmux;\<Esc>\e[5 q\<Esc>\\"
@@ -118,14 +124,6 @@ else
     let &t_SI = "\e[5 q"
     let &t_EI = "\e[2 q"
 endif
-
-" Windows GUI
-if has('win32') || has('win64')
-  source $VIMRUNTIME/mswin.vim
-  set guioptions -=T
-  set guioptions -=m
-endif
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " PLUGINS 
