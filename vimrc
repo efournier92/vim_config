@@ -21,7 +21,7 @@ filetype plugin indent on
 " SYSTEM 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " OS Dependent
-if has('unix')
+if has('uix')
   if has('mac')
     " Mac
     set directory^=$HOME/.vim/tmp/ " swap files
