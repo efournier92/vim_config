@@ -5,7 +5,6 @@ This repo contains my configuration files for:
 * tmux
 * babun
 
-
 ## Required Plugins
 * ctrlp
 * nerdtree
